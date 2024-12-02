@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { StudentServices } from './student.service'
 import sendResponse from '../../utils/sendResponse'
+import {StatusCodes} from 'http-status-codes'
 
 const getSingleStudent = async (
   req: Request,
@@ -12,7 +13,7 @@ const getSingleStudent = async (
     const result = await StudentServices.getSingleStudentFromDB(studentId)
 
     sendResponse(res, {
-      statusCode: httpStatus.OK,
+      statusCode: StatusCodes.OK,
       success: true,
       message: 'Student is retrieved succesfully',
       data: result,
@@ -31,7 +32,7 @@ const getAllStudents = async (
     const result = await StudentServices.getAllStudentsFromDB()
 
     sendResponse(res, {
-      statusCode: httpStatus.OK,
+      statusCode: StatusCodes.OK,
       success: true,
       message: 'Student are retrieved succesfully',
       data: result,
@@ -51,7 +52,7 @@ const deleteStudent = async (
     const result = await StudentServices.deleteStudentFromDB(studentId)
 
     sendResponse(res, {
-      statusCode: httpStatus.OK,
+      statusCode: StatusCodes.OK,
       success: true,
       message: 'Student is deleted succesfully',
       data: result,
