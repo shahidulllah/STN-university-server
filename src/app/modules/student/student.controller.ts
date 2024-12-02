@@ -17,4 +17,6 @@ const createStudent = async (req: Request, res: Response) => {
     }
 }
 
-export const studentControllers = {}
+export const studentControllers = {
+    createStudent,
+}
