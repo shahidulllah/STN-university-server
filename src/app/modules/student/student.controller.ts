@@ -2,21 +2,6 @@ import { NextFunction, Request, Response } from 'express'
 import { StudentServices } from './student.service'
 import sendResponse from '../../utils/sendResponse'
 
-const createStudent = async (req: Request, res: Response) => {
-  try {
-    const { student: StudentData } = req.body
-    const result = await StudentServices.createStudentIntoDB(StudentData)
-
-    res.status(400).json({
-      success: true,
-      message: 'Student is created successfully',
-      data: result,
-    })
-  } catch (err) {
-    console.log(err)
-  }
-}
-
 const getSingleStudent = async (
   req: Request,
   res: Response,
@@ -77,7 +62,6 @@ const deleteStudent = async (
 }
 
 export const StudentControllers = {
-  createStudent,
   getAllStudents,
   getSingleStudent,
   deleteStudent,
