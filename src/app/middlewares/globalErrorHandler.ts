@@ -1,5 +1,4 @@
-
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express'
 
 const globalErrorHandler = (
   err: any,
@@ -7,14 +6,14 @@ const globalErrorHandler = (
   res: Response,
   next: NextFunction,
 ) => {
-  const statusCode = 500;
-  const message = err.message || 'Something went wrong!';
+  const statusCode = 500
+  const message = err.message || 'Something went wrong!'
 
-  return res.status(statusCode).json({
+  res.status(statusCode).json({
     success: false,
     message,
     error: err,
-  });
-};
+  })
+}
 
-export default globalErrorHandler;
+export default globalErrorHandler
