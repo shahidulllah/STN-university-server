@@ -8,7 +8,7 @@ import { StatusCodes } from 'http-status-codes';
 const createStudent = async (
   req: Request,
   res: Response,
-  next: NextFunction,
+  // next: NextFunction,
 ) => {
   try {
     const { password, student: studentData } = req.body;
@@ -20,14 +20,14 @@ const createStudent = async (
       studentData,
     );
 
-    sendResponse(res, {
-      statusCode: StatusCodes.OK,
-      success: true,
-      message: 'Student is created succesfully',
-      data: result,
-    });
+    // sendResponse(res, {
+    //   statusCode: StatusCodes.OK,
+    //   success: true,
+    //   message: 'Student is created succesfully',
+    //   data: result,
+    // });
   } catch (err) {
-    next(err);
+    // next(err);
   }
 };
 
