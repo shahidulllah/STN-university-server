@@ -31,7 +31,7 @@ const createStudent = async (
     // next(err);
   }
 };
-
+//This is for testing
 export const UserControllers = {
   createStudent,
 };
