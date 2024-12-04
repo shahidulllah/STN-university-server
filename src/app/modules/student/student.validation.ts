@@ -1,16 +1,16 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 const userNameSchema = z.object({
   firstName: z
     .string()
     .min(1)
     .max(20)
-    .refine((value) => /^[A-Z]/.test(value), {
+    .refine(value => /^[A-Z]/.test(value), {
       message: 'First Name must start with a capital letter',
     }),
   middleName: z.string(),
   lastName: z.string(),
-});
+})
 
 const guardianSchema = z.object({
   fatherName: z.string(),
@@ -19,14 +19,14 @@ const guardianSchema = z.object({
   motherName: z.string(),
   motherOccupation: z.string(),
   motherContactNo: z.string(),
-});
+})
 
 const localGuardianSchema = z.object({
   name: z.string(),
   occupation: z.string(),
   contactNo: z.string(),
   address: z.string(),
-});
+})
 
 export const studentValidationSchema = z.object({
   id: z.string(),
@@ -45,6 +45,6 @@ export const studentValidationSchema = z.object({
   profileImg: z.string(),
   isActive: z.enum(['active', 'blocked']).default('active'),
   isDeleted: z.boolean().optional(),
-});
+})
 
-export default studentValidationSchema;
+export default studentValidationSchema

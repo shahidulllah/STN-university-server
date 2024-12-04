@@ -13,15 +13,14 @@ app.use(cors())
 //application routes
 app.use('/api/v1', router)
 
-
 //checking
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!')
 })
 
-app.use(globalErrorHandler);
+app.use(globalErrorHandler)
 
 //Not Found
-app.use(notFound);
+app.use(notFound)
 
 export default app
