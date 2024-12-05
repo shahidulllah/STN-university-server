@@ -1,13 +1,9 @@
-import { NextFunction, Request, Response } from 'express'
+import { NextFunction, Request, RequestHandler, Response } from 'express'
 import sendResponse from '../../utils/sendResponse'
 import { UserServices } from './user.service'
 import { StatusCodes } from 'http-status-codes'
 
-const createStudent = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+const createStudent: RequestHandler = async (req, res, next) => {
   try {
     const { password, student: studentData } = req.body
 
