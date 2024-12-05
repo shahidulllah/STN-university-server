@@ -44,5 +44,3 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
 export const UserServices = {
   createStudentIntoDB,
 };
-//something is changed
-//Another
