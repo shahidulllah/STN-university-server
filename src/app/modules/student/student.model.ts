@@ -1,11 +1,11 @@
-import { model, Schema } from 'mongoose'
+import { model, Schema } from 'mongoose';
 import {
   StudentModel,
   TGuardian,
   TLocalGuardian,
   TStudent,
   TUserName,
-} from './student.interface'
+} from './student.interface';
 
 const userNameSchema = new Schema<TUserName>({
   firstName: {
@@ -24,7 +24,7 @@ const userNameSchema = new Schema<TUserName>({
     required: [true, 'Last Name is required'],
     maxlength: [20, 'Name can not be more than 20 characters'],
   },
-})
+});
 
 const guardianSchema = new Schema<TGuardian>({
   fatherName: {
@@ -53,7 +53,7 @@ const guardianSchema = new Schema<TGuardian>({
     type: String,
     required: [true, 'Mother Contact No is required'],
   },
-})
+});
 
 const localGuradianSchema = new Schema<TLocalGuardian>({
   name: {
@@ -72,7 +72,7 @@ const localGuradianSchema = new Schema<TLocalGuardian>({
     type: String,
     required: [true, 'Address is required'],
   },
-})
+});
 
 const studentSchema = new Schema<TStudent, StudentModel>(
   {
@@ -148,33 +148,33 @@ const studentSchema = new Schema<TStudent, StudentModel>(
       virtuals: true,
     },
   },
-)
+);
 
 // virtual
 studentSchema.virtual('fullName').get(function () {
-  return this.name.firstName + this.name.middleName + this.name.lastName
-})
+  return this.name.firstName + this.name.middleName + this.name.lastName;
+});
 
 // Query Middleware
 studentSchema.pre('find', function (next) {
-  this.find({ isDeleted: { $ne: true } })
-  next()
-})
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
 
 studentSchema.pre('findOne', function (next) {
-  this.find({ isDeleted: { $ne: true } })
-  next()
-})
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
 
 studentSchema.pre('aggregate', function (next) {
-  this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } })
-  next()
-})
+  this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
+  next();
+});
 
 //creating a custom static method
 studentSchema.statics.isUserExists = async function (id: string) {
-  const existingUser = await Student.findOne({ id })
-  return existingUser
-}
+  const existingUser = await Student.findOne({ id });
+  return existingUser;
+};
 
-export const Student = model<TStudent, StudentModel>('Student', studentSchema)
+export const Student = model<TStudent, StudentModel>('Student', studentSchema);

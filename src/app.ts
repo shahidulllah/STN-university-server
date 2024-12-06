@@ -1,26 +1,26 @@
-import express, { Application, Request, Response } from 'express'
-import cors from 'cors'
-import router from './app/routes'
-import globalErrorHandler from './app/middlewares/globalErrorHandler'
-import notFound from './app/middlewares/notFound'
+import express, { Application, Request, Response } from 'express';
+import cors from 'cors';
+import router from './app/routes';
+import globalErrorHandler from './app/middlewares/globalErrorHandler';
+import notFound from './app/middlewares/notFound';
 
-const app: Application = express()
+const app: Application = express();
 
 //perser
-app.use(express.json())
-app.use(cors())
+app.use(express.json());
+app.use(cors());
 
 //application routes
-app.use('/api/v1', router)
+app.use('/api/v1', router);
 
 //checking
 app.get('/', (req: Request, res: Response) => {
-  res.send('Hello World!')
-})
+  res.send('Hello World!');
+});
 
-app.use(globalErrorHandler)
+app.use(globalErrorHandler);
 
 //Not Found
-app.use(notFound)
+app.use(notFound);
 
-export default app
+export default app;

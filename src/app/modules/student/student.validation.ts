@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
 const userNameValidationSchema = z.object({
   firstName: z
@@ -10,7 +10,7 @@ const userNameValidationSchema = z.object({
     }),
   middleName: z.string(),
   lastName: z.string(),
-})
+});
 
 const guardianValidationSchema = z.object({
   fatherName: z.string(),
@@ -19,14 +19,14 @@ const guardianValidationSchema = z.object({
   motherName: z.string(),
   motherOccupation: z.string(),
   motherContactNo: z.string(),
-})
+});
 
 const localGuardianValidationSchema = z.object({
   name: z.string(),
   occupation: z.string(),
   contactNo: z.string(),
   address: z.string(),
-})
+});
 
 export const createStudentValidationSchema = z.object({
   body: z.object({
@@ -47,8 +47,8 @@ export const createStudentValidationSchema = z.object({
       profileImg: z.string(),
     }),
   }),
-})
+});
 
 export const studentValidations = {
   createStudentValidationSchema,
-}
+};
