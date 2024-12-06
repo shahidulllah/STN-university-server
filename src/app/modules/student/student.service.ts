@@ -1,5 +1,5 @@
 import path from 'path';
-import { StudentModel } from './student.interface';
+import { StudentModel, TStudent } from './student.interface';
 import { Student } from './student.model';
 import mongoose from 'mongoose';
 import AppError from '../../errors/AppError';
@@ -19,7 +19,7 @@ const getAllStudentsFromDB = async () => {
 };
 
 const getSingleStudentFromDB = async (id: string) => {
-  const result = await Student.findById(id)
+  const result = await Student.findOne({id})
     .populate('admissionSemester')
     .populate({
       path: 'academicDepartment',
@@ -27,6 +27,12 @@ const getSingleStudentFromDB = async (id: string) => {
         path: 'academicFaculty',
       },
     });
+  return result;
+};
+
+const updateStudentIntoDB = async (id: string, payload: Partial<TStudent>) => {
+  const result = await Student.findOneAndUpdate({id}, payload)
+    
   return result;
 };
 
@@ -68,4 +74,5 @@ export const StudentServices = {
   getAllStudentsFromDB,
   getSingleStudentFromDB,
   deleteStudentFromDB,
+  updateStudentIntoDB
 };
