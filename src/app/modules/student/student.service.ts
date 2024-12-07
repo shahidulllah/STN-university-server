@@ -6,8 +6,17 @@ import AppError from '../../errors/AppError';
 import { User } from '../user/user.model';
 import { StatusCodes } from 'http-status-codes';
 
-const getAllStudentsFromDB = async () => {
-  const result = await Student.find()
+const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
+
+  let searchTerm = '';
+  if(query?.searchTerm) {
+    searchTerm = query?.searchTerm as string;
+  }
+  const result = await Student.find({
+    $or: ['email', 'name.firstName', 'presentAddress'].map((field) => ({
+      [field]: {$regex: searchTerm, $options: 'i'}
+    }))
+  })
     .populate('admissionSemester')
     .populate({
       path: 'academicDepartment',
