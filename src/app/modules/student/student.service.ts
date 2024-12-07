@@ -7,16 +7,29 @@ import { User } from '../user/user.model';
 import { StatusCodes } from 'http-status-codes';
 
 const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
+  const queryObj = { ...query };
+
+  const studentSearchableFields = ['email', 'name.firstName', 'presentAddress'];
 
   let searchTerm = '';
-  if(query?.searchTerm) {
+
+  if (query?.searchTerm) {
     searchTerm = query?.searchTerm as string;
   }
-  const result = await Student.find({
-    $or: ['email', 'name.firstName', 'presentAddress'].map((field) => ({
-      [field]: {$regex: searchTerm, $options: 'i'}
-    }))
-  })
+
+  const searchQuery = Student.find({
+    $or: studentSearchableFields.map(field => ({
+      [field]: { $regex: searchTerm, $options: 'i' },
+    })),
+  });
+
+  //Filtering
+  const excludeFields = ['searchTerm', 'sort'];
+
+  excludeFields.forEach(el => delete queryObj[el]);
+
+  const FilterQuery = searchQuery
+    .find(queryObj)
     .populate('admissionSemester')
     .populate({
       path: 'academicDepartment',
@@ -24,7 +37,14 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
         path: 'academicFaculty',
       },
     });
-  return result;
+
+  let sort = '-createdAt';
+
+  if (query.sort) {
+    sort = query.sort as string;
+  }
+  const sortQuery = await FilterQuery.sort(sort);
+  return sortQuery;
 };
 
 const getSingleStudentFromDB = async (id: string) => {
