@@ -24,7 +24,7 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
   });
 
   //Filtering
-  const excludeFields = ['searchTerm', 'sort', 'limit', 'page'];
+  const excludeFields = ['searchTerm', 'sort', 'limit', 'page', 'fields'];
 
   excludeFields.forEach(el => delete queryObj[el]);
 
@@ -59,10 +59,18 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
     page = Number(query.page);
     skip = (page - 1) * limit;
   }
-  const paginateQuery = sortQuery.skip(skip)
+  const paginateQuery = sortQuery.skip(skip);
 
-  const limitQuery = await paginateQuery.limit(limit);
-  return limitQuery;
+  const limitQuery = paginateQuery.limit(limit);
+
+  //Fields limiting
+  let fields = '-_v';
+  if (query.fields) {
+    fields = (query.fields as string).split(',').join(' ');
+  }
+  const fieldQuery = await limitQuery.select(fields);
+
+  return fieldQuery;
 };
 
 const getSingleStudentFromDB = async (id: string) => {
