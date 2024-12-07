@@ -9,12 +9,13 @@ class QueryBuilder<T> {
     this.query = query;
   }
 
+  //Searching
   search(searchableFields: string[]) {
     const searchTerm = this?.query?.searchTerm;
     if (searchTerm) {
       this.modelQuery = this.modelQuery.find({
         $or: searchableFields.map(
-          (field) =>
+          field =>
             ({
               [field]: { $regex: searchTerm, $options: 'i' },
             }) as FilterQuery<T>,
@@ -25,19 +26,20 @@ class QueryBuilder<T> {
     return this;
   }
 
+  // Filtering
   filter() {
     const queryObj = { ...this.query }; // copy
 
-    // Filtering
     const excludeFields = ['searchTerm', 'sort', 'limit', 'page', 'fields'];
 
-    excludeFields.forEach((el) => delete queryObj[el]);
+    excludeFields.forEach(el => delete queryObj[el]);
 
     this.modelQuery = this.modelQuery.find(queryObj as FilterQuery<T>);
 
     return this;
   }
 
+  //Sorting
   sort() {
     const sort =
       (this?.query?.sort as string)?.split(',')?.join(' ') || '-createdAt';
@@ -46,6 +48,7 @@ class QueryBuilder<T> {
     return this;
   }
 
+  //Pagination
   paginate() {
     const page = Number(this?.query?.page) || 1;
     const limit = Number(this?.query?.limit) || 10;
@@ -56,11 +59,13 @@ class QueryBuilder<T> {
     return this;
   }
 
+  //Field limiting
   fields() {
     const fields =
       (this?.query?.fields as string)?.split(',')?.join(' ') || '-__v';
 
     this.modelQuery = this.modelQuery.select(fields);
+    
     return this;
   }
 }
