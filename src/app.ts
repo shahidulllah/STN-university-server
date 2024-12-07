@@ -14,8 +14,8 @@ app.use(cors());
 app.use('/api/v1', router);
 
 //checking
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello World!');
+app.get('/', async (req: Request, res: Response) => {
+  res.send('Hello from PH University!');
 });
 
 app.use(globalErrorHandler);
