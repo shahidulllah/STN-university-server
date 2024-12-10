@@ -2,12 +2,12 @@
 import mongoose from 'mongoose';
 import QueryBuilder from '../../builder/QueryBuilder';
 import AppError from '../../errors/AppError';
-import { OfferedCourse } from '../OfferedCourse/OfferedCourse.model';
 import { AcademicSemester } from '../academicSemester/academicSemester.model';
 import { RegistrationStatus } from './semesterRegistration.constant';
 import { TSemesterRegistration } from './semesterRegistration.interface';
 import { SemesterRegistration } from './semesterRegistration.model';
 import { StatusCodes } from 'http-status-codes';
+import { OfferedCourse } from '../OfferedCourse/OfferedCourse.model';
 
 const createSemesterRegistrationIntoDB = async (
   payload: TSemesterRegistration,
@@ -106,7 +106,7 @@ const updateSemesterRegistrationIntoDB = async (
   const isSemesterRegistrationExists = await SemesterRegistration.findById(id);
 
   if (!isSemesterRegistrationExists) {
-    throw new AppError(httpStatus.NOT_FOUND, 'This semester is not found !');
+    throw new AppError(StatusCodes.NOT_FOUND, 'This semester is not found !');
   }
 
   //if the requested semester registration is ended , we will not update anything
