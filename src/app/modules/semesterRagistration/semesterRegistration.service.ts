@@ -42,8 +42,8 @@ const createSemesterRegistrationIntoDB = async (
 
   if (!isAcademicSemesterExists) {
     throw new AppError(
-        StatusCodes.NOT_FOUND,
-      'This academic semester not found !',
+      StatusCodes.NOT_FOUND,
+      'This academic semester is not found !',
     );
   }
 
@@ -54,7 +54,7 @@ const createSemesterRegistrationIntoDB = async (
 
   if (isSemesterRegistrationExists) {
     throw new AppError(
-        StatusCodes.CONFLICT,
+      StatusCodes.CONFLICT,
       'This semester is already registered!',
     );
   }
@@ -115,7 +115,7 @@ const updateSemesterRegistrationIntoDB = async (
 
   if (currentSemesterStatus === RegistrationStatus.ENDED) {
     throw new AppError(
-        StatusCodes.BAD_REQUEST,
+      StatusCodes.BAD_REQUEST,
       `This semester is already ${currentSemesterStatus}`,
     );
   }
@@ -126,7 +126,7 @@ const updateSemesterRegistrationIntoDB = async (
     requestedStatus === RegistrationStatus.ENDED
   ) {
     throw new AppError(
-        StatusCodes.BAD_REQUEST,
+      StatusCodes.BAD_REQUEST,
       `You can not directly change status from ${currentSemesterStatus} to ${requestedStatus}`,
     );
   }
@@ -136,7 +136,7 @@ const updateSemesterRegistrationIntoDB = async (
     requestedStatus === RegistrationStatus.UPCOMING
   ) {
     throw new AppError(
-        StatusCodes.BAD_REQUEST,
+      StatusCodes.BAD_REQUEST,
       `You can not directly change status from ${currentSemesterStatus} to ${requestedStatus}`,
     );
   }
@@ -161,7 +161,7 @@ const deleteSemesterRegistrationFromDB = async (id: string) => {
 
   if (!isSemesterRegistrationExists) {
     throw new AppError(
-        StatusCodes.NOT_FOUND,
+      StatusCodes.NOT_FOUND,
       'This registered semester is not found !',
     );
   }
@@ -171,7 +171,7 @@ const deleteSemesterRegistrationFromDB = async (id: string) => {
 
   if (semesterRegistrationStatus !== 'UPCOMING') {
     throw new AppError(
-        StatusCodes.BAD_REQUEST,
+      StatusCodes.BAD_REQUEST,
       `You can not update as the registered semester is ${semesterRegistrationStatus}`,
     );
   }
