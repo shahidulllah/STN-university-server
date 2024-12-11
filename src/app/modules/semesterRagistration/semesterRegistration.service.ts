@@ -145,7 +145,6 @@ const updateSemesterRegistrationIntoDB = async (
     new: true,
     runValidators: true,
   });
-
   return result;
 };
 
@@ -179,7 +178,6 @@ const deleteSemesterRegistrationFromDB = async (id: string) => {
   const session = await mongoose.startSession();
 
   //deleting associated offered courses
-
   try {
     session.startTransaction();
 
