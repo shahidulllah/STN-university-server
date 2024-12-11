@@ -60,7 +60,10 @@ const createOfferedCourseIntoDB = async (payload: TOfferedCourse) => {
     await AcademicDepartment.findById(academicDepartment);
 
   if (!isAcademicDepartmentExits) {
-    throw new AppError(StatusCodes.NOT_FOUND, 'Academic Department not found !');
+    throw new AppError(
+      StatusCodes.NOT_FOUND,
+      'Academic Department not found !',
+    );
   }
 
   const isCourseExits = await Course.findById(course);
@@ -83,7 +86,7 @@ const createOfferedCourseIntoDB = async (payload: TOfferedCourse) => {
 
   if (!isDepartmentBelongToFaculty) {
     throw new AppError(
-        StatusCodes.BAD_REQUEST,
+      StatusCodes.BAD_REQUEST,
       `This ${isAcademicDepartmentExits.name} is not  belong to this ${isAcademicFacultyExits.name}`,
     );
   }
@@ -99,7 +102,7 @@ const createOfferedCourseIntoDB = async (payload: TOfferedCourse) => {
 
   if (isSameOfferedCourseExistsWithSameRegisteredSemesterWithSameSection) {
     throw new AppError(
-        StatusCodes.BAD_REQUEST,
+      StatusCodes.BAD_REQUEST,
       `Offered course with same section is already exist!`,
     );
   }
@@ -119,7 +122,7 @@ const createOfferedCourseIntoDB = async (payload: TOfferedCourse) => {
 
   if (hasTimeConflict(assignedSchedules, newSchedule)) {
     throw new AppError(
-        StatusCodes.CONFLICT,
+      StatusCodes.CONFLICT,
       `This faculty is not available at that time ! Choose other time or day`,
     );
   }
@@ -180,14 +183,13 @@ const updateOfferedCourseIntoDB = async (
   const semesterRegistration = isOfferedCourseExists.semesterRegistration;
   // get the schedules of the faculties
 
-
   // Checking the status of the semester registration
   const semesterRegistrationStatus =
     await SemesterRegistration.findById(semesterRegistration);
 
   if (semesterRegistrationStatus?.status !== 'UPCOMING') {
     throw new AppError(
-        StatusCodes.BAD_REQUEST,
+      StatusCodes.BAD_REQUEST,
       `You can not update this offered course as it is ${semesterRegistrationStatus?.status}`,
     );
   }
@@ -207,7 +209,7 @@ const updateOfferedCourseIntoDB = async (
 
   if (hasTimeConflict(assignedSchedules, newSchedule)) {
     throw new AppError(
-        StatusCodes.CONFLICT,
+      StatusCodes.CONFLICT,
       `This faculty is not available at that time ! Choose other time or day`,
     );
   }
@@ -237,7 +239,7 @@ const deleteOfferedCourseFromDB = async (id: string) => {
 
   if (semesterRegistrationStatus?.status !== 'UPCOMING') {
     throw new AppError(
-        StatusCodes.BAD_REQUEST,
+      StatusCodes.BAD_REQUEST,
       `Offered course can not update ! because the semester ${semesterRegistrationStatus}`,
     );
   }
