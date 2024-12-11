@@ -120,7 +120,7 @@ const updateSemesterRegistrationIntoDB = async (
     );
   }
 
-  // UPCOMING --> ONGOING --> ENDED
+  // UPCOMING-->ONGOING -->ENDED
   if (
     currentSemesterStatus === RegistrationStatus.UPCOMING &&
     requestedStatus === RegistrationStatus.ENDED
