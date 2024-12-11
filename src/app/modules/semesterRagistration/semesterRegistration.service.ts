@@ -96,9 +96,9 @@ const updateSemesterRegistrationIntoDB = async (
    * Step4: If the requested semester registration is 'UPCOMING', we will let update everything.
    * Step5: If the requested semester registration is 'ONGOING', we will not update anything  except status to 'ENDED'
    * Step6: If the requested semester registration is 'ENDED' , we will not update anything
-   *
+   
    * UPCOMING --> ONGOING --> ENDED
-   *
+   
    */
 
   // check if the requested registered semester is exists
