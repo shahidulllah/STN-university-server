@@ -8,6 +8,13 @@ import { TFaculty } from './faculty.interface';
 import { Faculty } from './faculty.model';
 import { StatusCodes } from 'http-status-codes';
 
+//create faculty
+const createFacultyIntoDB = async (payload: TFaculty) => {
+  const result = await Faculty.create(payload);
+
+  return result;
+};
+
 const getAllFacultiesFromDB = async (query: Record<string, unknown>) => {
   const facultyQuery = new QueryBuilder(
     Faculty.find().populate('academicDepartment'),
