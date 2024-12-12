@@ -5,6 +5,8 @@ import { updateAdminValidationSchema } from './admin.validation';
 
 const router = express.Router();
 
+router.post('/create-admin', AdminControllers.createAdmin);
+
 router.get('/', AdminControllers.getAllAdmins);
 
 router.get('/:id', AdminControllers.getSingleAdmin);
