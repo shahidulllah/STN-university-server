@@ -8,6 +8,12 @@ import { TAdmin } from './admin.interface';
 import { Admin } from './admin.model';
 import { StatusCodes } from 'http-status-codes';
 
+const createAdminIntoDB = async (payload: TAdmin) => {
+  const result = await Admin.create(payload);
+
+  return result;
+};
+
 const getAllAdminsFromDB = async (query: Record<string, unknown>) => {
   const adminQuery = new QueryBuilder(Admin.find(), query)
     .search(AdminSearchableFields)
@@ -86,6 +92,7 @@ const deleteAdminFromDB = async (id: string) => {
 };
 
 export const AdminServices = {
+  createAdminIntoDB,
   getAllAdminsFromDB,
   getSingleAdminFromDB,
   updateAdminIntoDB,
