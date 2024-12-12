@@ -97,6 +97,7 @@ const deleteFacultyFromDB = async (id: string) => {
 };
 
 export const FacultyServices = {
+  createFacultyIntoDB,
   getAllFacultiesFromDB,
   getSingleFacultyFromDB,
   updateFacultyIntoDB,
