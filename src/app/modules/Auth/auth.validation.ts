@@ -8,8 +8,15 @@ const loginValidationSchema = z.object({
 });
 
 const changePasswordValidationSchema = z.object({
-    body: z.object({
-      oldPassword: z.string({ required_error: 'oldPassword is required' }),
-      newPassword: z.string({ required_error: 'New password is required' }),
-    }),
-  });
+  body: z.object({
+    oldPassword: z.string({ required_error: 'oldPassword is required' }),
+    newPassword: z.string({ required_error: 'New password is required' }),
+  }),
+});
+
+const refreshTokenValidationSchema = z.object({
+  cookies: z.object({
+    refreshToken: z.string({ required_error: 'RefreshToken is required' }),
+  }),
+});
+
