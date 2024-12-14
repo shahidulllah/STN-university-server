@@ -8,12 +8,7 @@ import { TAdmin } from './admin.interface';
 import { Admin } from './admin.model';
 import { StatusCodes } from 'http-status-codes';
 
-const createAdminIntoDB = async (payload: TAdmin) => {
-  const result = await Admin.create(payload);
-
-  return result;
-};
-
+//Get all Admins
 const getAllAdminsFromDB = async (query: Record<string, unknown>) => {
   const adminQuery = new QueryBuilder(Admin.find(), query)
     .search(AdminSearchableFields)
@@ -26,11 +21,13 @@ const getAllAdminsFromDB = async (query: Record<string, unknown>) => {
   return result;
 };
 
+//Get single admin
 const getSingleAdminFromDB = async (id: string) => {
   const result = await Admin.findById(id);
   return result;
 };
 
+//Update admin
 const updateAdminIntoDB = async (id: string, payload: Partial<TAdmin>) => {
   const { name, ...remainingAdminData } = payload;
 
@@ -50,7 +47,7 @@ const updateAdminIntoDB = async (id: string, payload: Partial<TAdmin>) => {
   });
   return result;
 };
-
+//Delete admin
 const deleteAdminFromDB = async (id: string) => {
   const session = await mongoose.startSession();
 
@@ -92,7 +89,6 @@ const deleteAdminFromDB = async (id: string) => {
 };
 
 export const AdminServices = {
-  createAdminIntoDB,
   getAllAdminsFromDB,
   getSingleAdminFromDB,
   updateAdminIntoDB,
