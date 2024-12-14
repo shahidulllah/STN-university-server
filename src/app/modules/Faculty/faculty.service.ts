@@ -8,13 +8,7 @@ import { TFaculty } from './faculty.interface';
 import { Faculty } from './faculty.model';
 import { StatusCodes } from 'http-status-codes';
 
-//create faculty
-const createFacultyIntoDB = async (payload: TFaculty) => {
-  const result = await Faculty.create(payload);
-
-  return result;
-};
-
+//Get all faculties
 const getAllFacultiesFromDB = async (query: Record<string, unknown>) => {
   const facultyQuery = new QueryBuilder(
     Faculty.find().populate('academicDepartment'),
@@ -30,12 +24,14 @@ const getAllFacultiesFromDB = async (query: Record<string, unknown>) => {
   return result;
 };
 
+//Get single faculty
 const getSingleFacultyFromDB = async (id: string) => {
   const result = await Faculty.findById(id).populate('academicDepartment');
 
   return result;
 };
 
+//Update faculty
 const updateFacultyIntoDB = async (id: string, payload: Partial<TFaculty>) => {
   const { name, ...remainingFacultyData } = payload;
 
@@ -56,6 +52,7 @@ const updateFacultyIntoDB = async (id: string, payload: Partial<TFaculty>) => {
   return result;
 };
 
+//Delete faculty
 const deleteFacultyFromDB = async (id: string) => {
   const session = await mongoose.startSession();
 
@@ -97,7 +94,6 @@ const deleteFacultyFromDB = async (id: string) => {
 };
 
 export const FacultyServices = {
-  createFacultyIntoDB,
   getAllFacultiesFromDB,
   getSingleFacultyFromDB,
   updateFacultyIntoDB,
