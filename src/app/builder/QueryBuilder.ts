@@ -65,7 +65,7 @@ class QueryBuilder<T> {
       (this?.query?.fields as string)?.split(',')?.join(' ') || '-__v';
 
     this.modelQuery = this.modelQuery.select(fields);
-    
+
     return this;
   }
 }
