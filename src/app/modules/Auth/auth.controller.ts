@@ -4,6 +4,7 @@ import config from '../../config';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { AuthServices } from './auth.service';
+import AppError from '../../errors/AppError';
 
 const loginUser = catchAsync(async (req, res) => {
   const result = await AuthServices.loginUser(req.body);
@@ -62,9 +63,28 @@ const forgetPassword = catchAsync(async(req, res)=> {
   });
 }) 
 
+//Reset password
+const resetPassword = catchAsync(async(req, res)=> {
+  const token = req.headers.authorization;
+
+  if(!token) {
+    throw new AppError(StatusCodes.FORBIDDEN, "Unable to access, token is missing")
+  }
+
+  const result = await AuthServices.resetPassword(req.body, token)
+
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: 'Passord reset succesfully!',
+    data: result,
+  });
+}) 
+
 export const AuthControllers = {
   loginUser,
   changePassword,
   refreshToken,
-  forgetPassword
+  forgetPassword,
+  resetPassword
 };
