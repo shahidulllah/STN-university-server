@@ -1,9 +1,9 @@
 import express from 'express';
-import auth from '../../middlewares/auth';
-import validateRequest from '../../middlewares/validateRequest';
-import { USER_ROLE } from './../user/user.constant';
-import { AuthControllers } from './auth.controller';
 import { AuthValidation } from './auth.validation';
+import validateRequest from '../../middlewares/validateRequest';
+import { AuthControllers } from './auth.controller';
+import { USER_ROLE } from '../user/user.constant';
+import auth from '../../middlewares/auth';
 
 const router = express.Router();
 
@@ -32,10 +32,10 @@ router.post(
   AuthControllers.forgetPassword,
 );
 
-// router.post(
-//   '/reset-password',
-//   validateRequest(AuthValidation.forgetPasswordValidationSchema),
-//   AuthControllers.resetPassword,
-// );
+router.post(
+  '/reset-password',
+  validateRequest(AuthValidation.forgetPasswordValidationSchema),
+  AuthControllers.resetPassword,
+);
 
 export const AuthRoutes = router;
