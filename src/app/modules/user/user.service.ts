@@ -114,6 +114,7 @@ const createAdminIntoDB = async (password: string, payload: TAdmin) => {
     await session.endSession();
 
     return newAdmin;
+
   } catch (err: any) {
     await session.abortTransaction();
     await session.endSession();
@@ -170,12 +171,15 @@ const createFacultyIntoDB = async (password: string, payload: TFaculty) => {
     await session.endSession();
 
     return newFaculty;
+
   } catch (err: any) {
     await session.abortTransaction();
     await session.endSession();
     throw new Error(err);
   }
 };
+
+//
 
 export const UserServices = {
   createStudentIntoDB,
