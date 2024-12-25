@@ -114,7 +114,6 @@ const createAdminIntoDB = async (password: string, payload: TAdmin) => {
     await session.endSession();
 
     return newAdmin;
-
   } catch (err: any) {
     await session.abortTransaction();
     await session.endSession();
@@ -171,7 +170,6 @@ const createFacultyIntoDB = async (password: string, payload: TFaculty) => {
     await session.endSession();
 
     return newFaculty;
-
   } catch (err: any) {
     await session.abortTransaction();
     await session.endSession();
@@ -179,7 +177,22 @@ const createFacultyIntoDB = async (password: string, payload: TFaculty) => {
   }
 };
 
-//
+//Get me
+const getMe = async (userId: string, role: string) => {
+  let result = null;
+
+  if (role === 'student') {
+    result = await Student.findOne({ id: userId }).populate('user');
+  }
+  if (role === 'admin') {
+    result = await Admin.findOne({ id: userId }).populate('user');
+  }
+  if (role === 'faculty') {
+    result = await Faculty.findOne({ id: userId }).populate('user');
+  }
+
+  return result;
+};
 
 export const UserServices = {
   createStudentIntoDB,
