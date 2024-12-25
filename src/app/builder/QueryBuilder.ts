@@ -22,7 +22,6 @@ class QueryBuilder<T> {
         ),
       });
     }
-
     return this;
   }
 
