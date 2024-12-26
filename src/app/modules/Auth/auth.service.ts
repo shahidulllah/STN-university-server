@@ -226,7 +226,7 @@ const resetPassword = async (
   const userStatus = user?.status;
 
   if (userStatus === 'blocked') {
-    throw new AppError(StatusCodes.FORBIDDEN, 'This user is blocked ! !');
+    throw new AppError(StatusCodes.FORBIDDEN, 'This user is blocked!');
   }
 
   const decoded = jwt.verify(

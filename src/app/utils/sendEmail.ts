@@ -17,7 +17,7 @@ export const sendEmail = async (to: string, html: string) => {
         from: 'mdshahidsumon177@gmail.com', // sender address
         to, // list of receivers
         subject: "This is Hello for changing password ✔", // Subject line
-        text: "You forgot parssword??", // plain text body
+        text:"", // plain text body
         html, // html body
       });
 }
