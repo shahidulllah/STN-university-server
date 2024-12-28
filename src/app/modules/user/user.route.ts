@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import express, { NextFunction, Request, Response } from 'express';
 import auth from '../../middlewares/auth';
 import validateRequest from '../../middlewares/validateRequest';
@@ -17,7 +16,6 @@ router.post(
   // auth(USER_ROLE.admin),
   upload.single('file'),
   (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.body);
     req.body = JSON.parse(req.body.data);
     next();
   },
@@ -42,7 +40,6 @@ router.post(
   // auth(USER_ROLE.admin),
   upload.single('file'),
   (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.body);
     req.body = JSON.parse(req.body.data);
     next();
   },
