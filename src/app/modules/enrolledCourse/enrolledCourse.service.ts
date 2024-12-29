@@ -168,6 +168,7 @@ const updateEnrolledCourseMarksIntoDB = async (
   if (!isOfferedCourseExists) {
     throw new AppError(StatusCodes.NOT_FOUND, 'Offered course not found !');
   }
+
   const isStudentExists = await Student.findById(student);
 
   if (!isStudentExists) {
