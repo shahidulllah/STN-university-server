@@ -26,9 +26,13 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
     .paginate()
     .fields();
 
+  const meta = await studentQuery.countTotal();
   const result = await studentQuery.modelQuery;
 
-  return result;
+  return {
+    meta,
+    result,
+  };
 };
 
 const getSingleStudentFromDB = async (id: string) => {
@@ -81,7 +85,7 @@ const deleteStudentFromDB = async (id: string) => {
     session.startTransaction();
 
     const deletedStudent = await Student.findByIdAndUpdate(
-       id ,
+      id,
       { isDeleted: true },
       { new: true, session },
     );
@@ -92,7 +96,7 @@ const deleteStudentFromDB = async (id: string) => {
 
     //get user _id from deleted Student
     const userId = deletedStudent.user;
-    
+
     const deletedUser = await User.findByIdAndUpdate(
       userId,
       { isDeleted: true },
