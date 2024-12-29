@@ -4,7 +4,6 @@ import validateRequest from '../../middlewares/validateRequest';
 import { EnrolledCourseValidations } from './enrolledCourse.validation';
 import { EnrolledCourseControllers } from './enrolledCourse.controller';
 
-
 const router = express.Router();
 
 router.post(

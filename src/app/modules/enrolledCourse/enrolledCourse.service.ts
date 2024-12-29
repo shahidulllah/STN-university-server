@@ -145,6 +145,8 @@ const createEnrolledCourseIntoDB = async (
     throw new Error(err);
   }
 };
+
+//Update Enrolled course marks
 const updateEnrolledCourseMarksIntoDB = async (
   facultyId: string,
   payload: Partial<TEnrolledCourse>,
