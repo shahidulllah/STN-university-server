@@ -17,7 +17,7 @@ app.use('/api/v1', router);
 
 //checking
 app.get('/', async (req: Request, res: Response) => {
-  res.send('Hello from PH University!');
+  res.send('Hello from STN University!');
 });
 
 app.use(globalErrorHandler);
