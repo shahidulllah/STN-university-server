@@ -64,7 +64,7 @@ const createStudentIntoDB = async (
     if (file) {
       const imageName = `${userData.id}${payload?.name?.firstName}`;
       const path = file?.path;
-      
+
       //send image to cloudinary
       const { secure_url } = await sendImageToCloudinary(imageName, path);
       payload.profileImg = secure_url as string;
@@ -99,6 +99,9 @@ const createStudentIntoDB = async (
   }
 };
 
+//============================
+//Create Faculty===>
+//============================
 const createFacultyIntoDB = async (
   file: any,
   password: string,
@@ -121,8 +124,9 @@ const createFacultyIntoDB = async (
   );
 
   if (!academicDepartment) {
-    throw new AppError(400, 'Academic department not found');
+    throw new AppError(400, 'Academic department is not found');
   }
+  payload.academicFaculty = academicDepartment.academicFaculty;
 
   const session = await mongoose.startSession();
 
