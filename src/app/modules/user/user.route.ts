@@ -6,9 +6,9 @@ import { upload } from '../../utils/sendImageToCloudinary';
 import { createAdminValidationSchema } from '../Admin/admin.validation';
 import { createFacultyValidationSchema } from '../Faculty/faculty.validation';
 import { USER_ROLE } from './user.constant';
+import { createStudentValidationSchema } from '../student/student.validation';
 import { UserControllers } from './user.controller';
 import { UserValidation } from './user.validation';
-import { createStudentValidationSchema } from '../student/student.validation';
 
 const router = express.Router();
 

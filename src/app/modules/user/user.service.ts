@@ -9,15 +9,15 @@ import { Faculty } from '../Faculty/faculty.model';
 import { AcademicDepartment } from '../academicDepartment/academicDepartment.model';
 import { TStudent } from '../student/student.interface';
 import { Student } from '../student/student.model';
-import { AcademicSemester } from './../academicSemester/academicSemester.model';
+import { AcademicSemester } from '../academicSemester/academicSemester.model';
+import { StatusCodes } from 'http-status-codes';
 import { TUser } from './user.interface';
-import { User } from './user.model';
 import {
   generateAdminId,
   generateFacultyId,
   generateStudentId,
 } from './user.utils';
-import { StatusCodes } from 'http-status-codes';
+import { User } from './user.model';
 
 const createStudentIntoDB = async (
   file: any,
