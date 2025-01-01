@@ -1,1 +1,1 @@
-export const AcademicSemesterSearchableFields = ['name', 'year'];
+export const AcademicFacultySearchableFields = ['name'];
