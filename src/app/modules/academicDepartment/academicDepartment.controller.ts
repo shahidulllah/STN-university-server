@@ -3,6 +3,7 @@ import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { AcademicDepartmentServices } from './academicDepartment.service';
 
+//Create Department
 const createAcademicDepartmemt = catchAsync(async (req, res) => {
   const result =
     await AcademicDepartmentServices.createAcademicDepartmentIntoDB(req.body);
@@ -15,6 +16,7 @@ const createAcademicDepartmemt = catchAsync(async (req, res) => {
   });
 });
 
+//Get all Department
 const getAllAcademicDepartments = catchAsync(async (req, res) => {
   const result =
     await AcademicDepartmentServices.getAllAcademicDepartmentsFromDB(req.query);
@@ -28,6 +30,7 @@ const getAllAcademicDepartments = catchAsync(async (req, res) => {
   });
 });
 
+//Get single department
 const getSingleAcademicDepartment = catchAsync(async (req, res) => {
   const { departmentId } = req.params;
   const result =
@@ -43,6 +46,7 @@ const getSingleAcademicDepartment = catchAsync(async (req, res) => {
   });
 });
 
+//Update department
 const updateAcademicDeartment = catchAsync(async (req, res) => {
   const { departmentId } = req.params;
   const result =
