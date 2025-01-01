@@ -1,4 +1,3 @@
-
 import { StatusCodes } from 'http-status-codes';
 import config from '../../config';
 import catchAsync from '../../utils/catchAsync';
@@ -13,6 +12,8 @@ const loginUser = catchAsync(async (req, res) => {
   res.cookie('refreshToken', refreshToken, {
     secure: config.NODE_ENV === 'production',
     httpOnly: true,
+    sameSite: 'none',
+    maxAge: 1000 * 60 * 60 * 24 * 365,
   });
 
   sendResponse(res, {
@@ -50,10 +51,10 @@ const refreshToken = catchAsync(async (req, res) => {
   });
 });
 
-const forgetPassword = catchAsync(async(req, res)=> {
+const forgetPassword = catchAsync(async (req, res) => {
   const userId = req.body.id;
 
-  const result = await AuthServices.forgetPassword(userId)
+  const result = await AuthServices.forgetPassword(userId);
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
@@ -61,17 +62,20 @@ const forgetPassword = catchAsync(async(req, res)=> {
     message: 'Reset link is generated succesfully!',
     data: result,
   });
-}) 
+});
 
 //Reset password
-const resetPassword = catchAsync(async(req, res)=> {
+const resetPassword = catchAsync(async (req, res) => {
   const token = req.headers.authorization;
 
-  if(!token) {
-    throw new AppError(StatusCodes.FORBIDDEN, "Unable to access, token is missing")
+  if (!token) {
+    throw new AppError(
+      StatusCodes.FORBIDDEN,
+      'Unable to access, token is missing',
+    );
   }
 
-  const result = await AuthServices.resetPassword(req.body, token)
+  const result = await AuthServices.resetPassword(req.body, token);
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
@@ -79,12 +83,12 @@ const resetPassword = catchAsync(async(req, res)=> {
     message: 'Password reset succesfully!',
     data: result,
   });
-}) 
+});
 
 export const AuthControllers = {
   loginUser,
   changePassword,
   refreshToken,
   forgetPassword,
-  resetPassword
+  resetPassword,
 };
